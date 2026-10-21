@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Évaluation fiscale — valeurs de référence DGI</title>
+<meta name="description" content="Calcul indicatif à partir des valeurs de référence immobilières publiées par la DGI (termes de références).">
+<link rel="stylesheet" href="styles.css">
+<!-- Classic scripts (not ES modules): the page works when opened directly from disk (file://)
+     as well as from a web server. Order matters: data, then library, then the form. -->
+<script defer src="dist/dgi-valuation-data.js"></script>
+<script defer src="dist/dgi-valuation.js"></script>
+<script defer src="app.js"></script>
+</head>
+<body>
+<main class="page">
+  <section class="form-card" aria-labelledby="form-title">
+    <header class="form-header">
+      <h1 id="form-title" class="form-title">Évaluation fiscale</h1>
+      <p class="form-subtitle">Valeurs de référence publiées par la DGI</p>
+    </header>
+
+    <p id="dataset-status" class="status" role="status">Chargement des barèmes…</p>
+
+    <form id="valuation-form" class="form-body" novalidate>
+      <fieldset class="form-group transaction" id="transaction-group">
+        <legend>Type de transaction</legend>
+        <div class="segmented" role="radiogroup" aria-label="Type de transaction">
+          <label class="segment"><input type="radio" name="transaction" value="sale" checked disabled><span>Achat</span></label>
+          <label class="segment"><input type="radio" name="transaction" value="rental" disabled><span>Location</span></label>
+        </div>
+      </fieldset>
+
+      <div class="form-group">
+        <label for="wilaya">Wilaya</label>
+        <select id="wilaya" name="wilaya" disabled aria-describedby="wilaya-hint">
+          <option value="">Choisir la wilaya</option>
+        </select>
+        <p id="wilaya-hint" class="hint" hidden></p>
+      </div>
+
+      <div class="form-group">
+        <label for="commune">Commune</label>
+        <select id="commune" name="commune" disabled aria-describedby="commune-hint">
+          <option value="">Choisir la commune</option>
+        </select>
+        <p id="commune-hint" class="hint" hidden></p>
+      </div>
+
+      <div class="form-group">
+        <label for="nature">Nature du bien</label>
+        <select id="nature" name="nature" disabled>
+          <option value="">Choisir la nature du bien</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="type">Type</label>
+        <select id="type" name="type" disabled>
+          <option value="">Choisir le type</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="zone">Zone</label>
+        <select id="zone" name="zone" disabled>
+          <option value="">Choisir la zone</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="surface">Surface (m²)</label>
+        <input id="surface" name="surface" type="text" inputmode="decimal" autocomplete="off"
+               placeholder="Ex : 120 (m²)" required aria-describedby="surface-hint surface-error">
+        <p id="surface-hint" class="hint">Jusqu'à 2 décimales, par ex. 87,35.</p>
+        <p id="surface-error" class="field-error" hidden></p>
+      </div>
+
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+
+      <div class="form-footer">
+        <button type="submit" class="submit-button" disabled>Évaluer</button>
+      </div>
+    </form>
+
+    <section id="result" class="result" aria-live="polite" tabindex="-1" hidden></section>
+
+    <footer class="disclaimer">
+      <p id="disclaimer">Outil informatif fondé sur les barèmes de référence publiés par la Direction Générale des
+        Impôts. Il ne fournit ni la valeur vénale d'un bien, ni une base imposable, ni un montant d'impôt, de droits
+        ou de frais de notaire, et ne constitue pas un conseil fiscal ou juridique.</p>
+    </footer>
+  </section>
+</main>
+<noscript><p class="status error">Cette page nécessite JavaScript.</p></noscript>
+</body>
+</html>
